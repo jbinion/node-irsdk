@@ -8,6 +8,10 @@
 
 Unofficial [iRacing](http://www.iracing.com/) SDK implementation for Node.js.
 
+Changes on this fork:
+Implement of martinguders solution to https://github.com/apihlaja/node-irsdk/issues/94
+Remove non valid ascii characters from iRacing user names
+
 **node-irsdk** provides data access (live telemetry and session info) and most of available commands. You can find some usage examples from [utils](https://github.com/apihlaja/node-irsdk/tree/master/utils) directory, and there is some [data samples](https://github.com/apihlaja/node-irsdk/tree/master/sample-data) too.
 
 * [GitHub repo](https://github.com/apihlaja/node-irsdk)

@@ -22,7 +22,14 @@ function createSessionInfoParser () {
         return "TeamName: '" + p1.replace(/'/g, "''") + "'"
       }
     })
-    return yaml.safeLoad(fixedYamlStr)
+    var cleanNonAsciiNames = fixedYamlStr
+    .replace(/UserName: ([^\n]+)/g, function (str, p1) {
+      return 'UserName: ' + p1.replace(/[^\x20-\x7E]/g, '')
+    })
+    .replace(/AbbrevName: ([^\n]+)/g, function (y, p1) {
+      return 'AbbrevName: ' + p1.replace(/[^\x20-\x7E]/g, '')
+    })
+    return yaml.safeLoad(cleanNonAsciiNames)
   }
 }
 
