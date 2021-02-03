@@ -27,20 +27,20 @@
     "node": ">=6"
   },
   "dependencies": {
-    "js-yaml": "3.*",
+    "js-yaml": "^3.14.1",
     "nan": "2.14.0",
-    "prebuild-install": "^5.0.0"
+    "prebuild-install": "^5.3.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "changelog": "1.*",
-    "jsdoc-to-markdown": "^5.0.0",
-    "mocha": "^6.1.4",
-    "moment": "^2.19.3",
+    "jsdoc-to-markdown": "^5.0.3",
+    "mocha": "^6.2.3",
+    "moment": "^2.29.1",
     "prebuild": "9.0.1",
-    "sandboxed-module": "2.0.*",
-    "sinon": "^7.3.2",
-    "sinon-chai": "3.*",
+    "sandboxed-module": "^2.0.4",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.5.0",
     "standard": "8.6.0"
   },
   "standard": {
