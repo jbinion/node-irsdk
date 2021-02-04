@@ -1,7 +1,7 @@
 
 ## Changes on this fork
-Implement of martinguders solution to https://github.com/apihlaja/node-irsdk/issues/94
-Remove non valid ascii characters from iRacing user names
+* Implement of martinguders solution to https://github.com/apihlaja/node-irsdk/issues/94
+* Remove non valid ascii characters from iRacing user names
 ##
 # node-irsdk
 
