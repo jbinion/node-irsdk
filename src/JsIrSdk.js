@@ -23,10 +23,10 @@ function createSessionInfoParser () {
       }
     })
     var cleanNonAsciiNames = fixedYamlStr
-    .replace(/UserName: ([^\n]+)/g, function (str, p1) {
+    .replace(/UserName: ([^\n]+)/g, function (match, p1) {
       return 'UserName: ' + p1.replace(/[^\x20-\x7E]/g, '')
     })
-    .replace(/AbbrevName: ([^\n]+)/g, function (y, p1) {
+    .replace(/AbbrevName: ([^\n]+)/g, function (match, p1) {
       return 'AbbrevName: ' + p1.replace(/[^\x20-\x7E]/g, '')
     })
     return yaml.safeLoad(cleanNonAsciiNames)
