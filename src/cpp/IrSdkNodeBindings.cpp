@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "IRSDKWrapper.h"
 #include "IrSdkBindingHelpers.h"
