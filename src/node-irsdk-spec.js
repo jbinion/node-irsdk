@@ -1,17 +1,17 @@
-var sandboxed = require('sandboxed-module')
+const sandboxed = require('sandboxed-module')
 
 describe('node-irsdk', function () {
   this.slow(500) // sandboxing is slowish
 
   describe('#init', function () {
     it('instantiates JsIrSdk once', function () {
-      var jsIrSdkSpy = sinon.spy()
-      var nodeWrapperMock = {}
-      var opts = {
+      const jsIrSdkSpy = sinon.spy()
+      const nodeWrapperMock = {}
+      const opts = {
         telemetryUpdateInterval: 1,
         sessionInfoUpdateInterval: 2
       }
-      var nodeIrSdk = sandboxed.require('./node-irsdk', {
+      const nodeIrSdk = sandboxed.require('./node-irsdk', {
         requires: {
           '../build/Release/IrSdkNodeBindings': nodeWrapperMock,
           './JsIrSdk': jsIrSdkSpy
@@ -25,18 +25,18 @@ describe('node-irsdk', function () {
   })
   describe('#getInstance', function () {
     it('gives JsIrSdk singleton', function () {
-      var jsWrapperMock = function () {
+      const jsWrapperMock = function () {
         return ++jsWrapperMock.instanceCount
       }
-      var nodeWrapperMock = {}
-      var nodeIrSdk = sandboxed.require('./node-irsdk', {
+      const nodeWrapperMock = {}
+      const nodeIrSdk = sandboxed.require('./node-irsdk', {
         requires: {
           '../build/Release/IrSdkNodeBindings': nodeWrapperMock,
           './JsIrSdk': jsWrapperMock
         }
       })
-      var instance1 = nodeIrSdk.getInstance()
-      var instance2 = nodeIrSdk.getInstance()
+      const instance1 = nodeIrSdk.getInstance()
+      const instance2 = nodeIrSdk.getInstance()
       instance1.should.equal(instance2)
     })
   })

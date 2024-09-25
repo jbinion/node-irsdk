@@ -1,7 +1,6 @@
-
-var irsdk = require('../')
-var fs = require('fs')
-var moment = require('moment')
+const irsdk = require('../')
+const fs = require('fs')
+const moment = require('moment')
 
 // enable access to raw yaml sessioninfo
 process.env.NODE_ENV = 'development'
@@ -11,7 +10,7 @@ irsdk.init({
   sessionInfoUpdateInterval: 5000
 })
 
-var iracing = irsdk.getInstance()
+const iracing = irsdk.getInstance()
 
 console.log('waiting for iRacing...')
 
@@ -25,8 +24,8 @@ iracing.on('Disconnected', function () {
 
 iracing.once('TelemetryDescription', function (data) {
   console.log('got TelemetryDescription')
-  var dateStr = moment().format().replace(/:/g, '')
-  var fileName = './sample-data/' + dateStr + '-telemetry-desc.json'
+  const dateStr = moment().format().replace(/:/g, '')
+  const fileName = './sample-data/' + dateStr + '-telemetry-desc.json'
 
   fs.writeFile(fileName, JSON.stringify(data, null, 2), function (err) {
     if (err) throw err
@@ -35,8 +34,8 @@ iracing.once('TelemetryDescription', function (data) {
 
 iracing.on('Telemetry', function (data) {
   console.log('got Telemetry')
-  var dateStr = moment().format().replace(/:/g, '')
-  var fileName = './sample-data/' + dateStr + '-telemetry.json'
+  const dateStr = moment().format().replace(/:/g, '')
+  const fileName = './sample-data/' + dateStr + '-telemetry.json'
 
   fs.writeFile(fileName, JSON.stringify(data, null, 2), function (err) {
     if (err) throw err
@@ -45,9 +44,9 @@ iracing.on('Telemetry', function (data) {
 
 iracing.on('SessionInfo', function (data) {
   console.log('got SessionInfo')
-  var dateStr = moment().format().replace(/:/g, '')
-  var jsonFileName = './sample-data/' + dateStr + '-sessioninfo.json'
-  var yamlFileName = './sample-data/' + dateStr + '-sessioninfo.yaml'
+  const dateStr = moment().format().replace(/:/g, '')
+  const jsonFileName = './sample-data/' + dateStr + '-sessioninfo.json'
+  const yamlFileName = './sample-data/' + dateStr + '-sessioninfo.yaml'
 
   fs.writeFile(jsonFileName, JSON.stringify(data, null, 2), function (err) {
     if (err) throw err
@@ -59,4 +58,3 @@ iracing.on('SessionInfo', function (data) {
     })
   }
 })
-

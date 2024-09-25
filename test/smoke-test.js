@@ -1,15 +1,15 @@
 // tests if node-irsdk works at all..
 
-var expect = require('chai').expect
+const expect = require('chai').expect
 
-var irsdk = require('../')
+const irsdk = require('../')
 
 irsdk.init({
   telemetryUpdateInterval: 0,
   sessionInfoUpdateInterval: 1000
 })
 
-var iracing = irsdk.getInstance()
+const iracing = irsdk.getInstance()
 
 console.log()
 console.log('waiting for iRacing...')
@@ -18,8 +18,8 @@ iracing.once('Connected', function () {
   console.log()
   console.log('Connected to iRacing.')
 
-  var telemetry
-  var desc
+  let telemetry
+  let desc
 
   iracing.once('TelemetryDescription', function (data) {
     console.log('TelemetryDescription event received')
@@ -50,18 +50,18 @@ iracing.once('Connected', function () {
 
 // tests that C++ module is working
 // correctly when doing unit & type conversions
-var checkTelemetryValues = function (telemetry, desc) {
+const checkTelemetryValues = function (telemetry, desc) {
   if (!desc || !telemetry) {
     return
   }
 
   console.log('got telemetry and its description, validating output..')
 
-  for (var telemetryVarName in desc) {
+  for (const telemetryVarName in desc) {
     if (desc.hasOwnProperty(telemetryVarName)) {
       console.log('checking ' + telemetryVarName)
       var varDesc = desc[telemetryVarName]
-      var value = telemetry.values[telemetryVarName]
+      const value = telemetry.values[telemetryVarName]
 
       expect(varDesc).to.exist.and.to.be.an('object')
       expect(value).to.exist
@@ -77,7 +77,7 @@ var checkTelemetryValues = function (telemetry, desc) {
     }
   }
 }
-var validateValue = function (val, desc) {
+const validateValue = function (val, desc) {
   if (desc.type !== 'bitField') {
     if (desc.unit.substr(0, 5) === 'irsdk') {
       expect(val).to.be.a('string', 'enums should be converted to strings')
@@ -108,9 +108,9 @@ var validateValue = function (val, desc) {
 }
 
 // kill the process when enough is done..
-var done = (function () {
-  var tasks = []
-  var totalTasks = 3
+const done = (function () {
+  const tasks = []
+  const totalTasks = 3
 
   return function (taskName) {
     tasks.push(taskName)

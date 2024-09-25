@@ -5,7 +5,7 @@
   @constant
   @example var IrSdkConsts = require('node-irsdk').getInstance().Consts
  */
-var IrSdkConsts = {
+const IrSdkConsts = {
   /**
     Available command messages.
     @enum
@@ -44,9 +44,9 @@ var IrSdkConsts = {
   */
   CameraState: {
     /** Is driver out of the car */
-    IsSessionScreen: 0x0001,      //
+    IsSessionScreen: 0x0001, //
     /** The scenic camera is active (no focus car) */
-    IsScenicActive: 0x0002,       //
+    IsScenicActive: 0x0002, //
 
     // these can be changed with a broadcast message
     /** Activate camera tool */

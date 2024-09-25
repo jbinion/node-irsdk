@@ -1,16 +1,15 @@
-
-var irsdk = require('../')
-var fs = require('fs')
+const irsdk = require('../')
+const fs = require('fs')
 
 irsdk.init({
   telemetryUpdateInterval: 100,
   sessionInfoUpdateInterval: 2000
 })
 
-var iracing = irsdk.getInstance()
+const iracing = irsdk.getInstance()
 
 function saveSample (type, time, data) {
-  var fileName = './sample-data/rec/' + time + '-' + type + '.json'
+  const fileName = './sample-data/rec/' + time + '-' + type + '.json'
   fs.writeFile(fileName, JSON.stringify(data), function (err) {
     if (err) throw err
   })
@@ -43,4 +42,3 @@ iracing.on('SessionInfo', function (data) {
 
   saveSample('SessionInfo', Date.now(), data)
 })
-

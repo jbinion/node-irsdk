@@ -1,12 +1,12 @@
-var IrSdkNodeWrapper = require('../build/Release/IrSdkNodeBindings')
-var JsIrSdk = require('./JsIrSdk')
+const IrSdkNodeWrapper = require('../build/Release/IrSdkNodeBindings')
+const JsIrSdk = require('./JsIrSdk')
 
 /**
   @module irsdk
 */
 module.exports = {}
 
-var instance
+let instance
 
 /**
   Initialize JsIrSdk, can be done once before using getInstance first time.
@@ -22,7 +22,7 @@ var instance
   * // look for telemetry updates only once per 100 ms
   * var iracing = irsdk.init({telemetryUpdateInterval: 100})
 */
-var init = (module.exports.init = function (opts) {
+const init = (module.exports.init = function (opts) {
   if (!instance) {
     instance = new JsIrSdk(
       IrSdkNodeWrapper,

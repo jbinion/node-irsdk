@@ -1,13 +1,13 @@
 // camera / command example
 
-var irsdk = require('../')
+const irsdk = require('../')
 
 irsdk.init({
   telemetryUpdateInterval: 1000,
   sessionInfoUpdateInterval: 1000
 })
 
-var iracing = irsdk.getInstance()
+const iracing = irsdk.getInstance()
 
 console.log('\nwaiting for iRacing...')
 
@@ -23,13 +23,13 @@ iracing.on('Connected', function () {
     console.log('SessionInfo event received\n')
 
     // try to find rollbar cam group
-    var camGroup = sessionInfo.data.CameraInfo.Groups.find(function (camGroup) {
+    const camGroup = sessionInfo.data.CameraInfo.Groups.find(function (camGroup) {
       return camGroup.GroupName === 'Roll Bar'
     })
-    var camGroupNum = (camGroup) ? camGroup.GroupNum : 1
+    const camGroupNum = (camGroup) ? camGroup.GroupNum : 1
 
     // loop thru top10, switch every 5 second
-    var currentPosition = 1
+    let currentPosition = 1
 
     setInterval(function () {
       console.log('showing P' + currentPosition)

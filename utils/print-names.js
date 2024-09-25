@@ -1,13 +1,13 @@
 // prints team names
 
-var irsdk = require('../')
+const irsdk = require('../')
 
 irsdk.init({
   telemetryUpdateInterval: 1000,
   sessionInfoUpdateInterval: 1000
 })
 
-var iracing = irsdk.getInstance()
+const iracing = irsdk.getInstance()
 
 console.log('\nwaiting for iRacing...')
 
@@ -26,4 +26,3 @@ iracing.on('Connected', function () {
     process.exit()
   })
 })
-

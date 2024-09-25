@@ -1,7 +1,7 @@
-var util = require('util')
-var events = require('events')
-var Consts = require('./IrSdkConsts')
-var BroadcastMsg = Consts.BroadcastMsg
+const util = require('util')
+const events = require('events')
+const Consts = require('./IrSdkConsts')
+const BroadcastMsg = Consts.BroadcastMsg
 
 /** Default parser used for SessionInfo YAML
   Fixes TeamName issue, uses js-yaml for actual parsing
@@ -10,10 +10,10 @@ var BroadcastMsg = Consts.BroadcastMsg
   @returns {Object} parsed session info or falsy
 */
 function createSessionInfoParser () {
-  var yaml = require('js-yaml')
+  const yaml = require('js-yaml')
 
   return function (sessionInfoStr) {
-    var fixedYamlStr = sessionInfoStr.replace(/TeamName: ([^\n]+)/g, function (match, p1) {
+    const fixedYamlStr = sessionInfoStr.replace(/TeamName: ([^\n]+)/g, function (match, p1) {
       if (
         (p1[0] === '"' && p1[p1.length - 1] === '"') ||
         (p1[0] === "'" && p1[p1.length - 1] === "'")
@@ -24,7 +24,7 @@ function createSessionInfoParser () {
         return "TeamName: '" + p1.replace(/'/g, "''") + "'"
       }
     })
-    var cleanNonAsciiNames = fixedYamlStr
+    const cleanNonAsciiNames = fixedYamlStr
       .replace(/UserName: ([^\n]+)/g, function (match, p1) {
         return 'UserName: ' + p1.replace(/[^\x20-\x7E]/g, '')
       })
@@ -310,7 +310,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
     }
   }
 
-  var self = this
+  const self = this
   opts = opts || {}
 
   /**
@@ -319,12 +319,12 @@ function JsIrSdk (IrSdkWrapper, opts) {
    @param {String} sessionInfo SessionInfo YAML
    @returns {Object} parsed session info
   */
-  var parseSessionInfo = opts.sessionInfoParser
+  let parseSessionInfo = opts.sessionInfoParser
   if (!parseSessionInfo) parseSessionInfo = createSessionInfoParser()
 
-  var connected = false // if irsdk is available
+  let connected = false // if irsdk is available
 
-  var startIntervalId = setInterval(function () {
+  const startIntervalId = setInterval(function () {
     if (!IrSdkWrapper.isInitialized()) {
       IrSdkWrapper.start()
     }
@@ -347,7 +347,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
   */
   this.sessionInfo = null
 
-  var checkConnection = function () {
+  const checkConnection = function () {
     if (IrSdkWrapper.isInitialized() && IrSdkWrapper.isConnected()) {
       if (!connected) {
         connected = true
@@ -380,10 +380,10 @@ function JsIrSdk (IrSdkWrapper, opts) {
     }
   }
 
-  var telemetryIntervalId = setInterval(function () {
+  const telemetryIntervalId = setInterval(function () {
     checkConnection()
     if (connected && IrSdkWrapper.updateTelemetry()) {
-      var now = new Date() // date gives ms accuracy
+      const now = new Date() // date gives ms accuracy
       self.telemetry = IrSdkWrapper.getTelemetry()
       // replace ctime timestamp
       self.telemetry.timestamp = now
@@ -420,12 +420,12 @@ function JsIrSdk (IrSdkWrapper, opts) {
     }
   }, opts.telemetryUpdateInterval)
 
-  var sessionInfoIntervalId = setInterval(function () {
+  const sessionInfoIntervalId = setInterval(function () {
     checkConnection()
     if (connected && IrSdkWrapper.updateSessionInfo()) {
-      var now = new Date()
-      var sessionInfo = IrSdkWrapper.getSessionInfo()
-      var doc
+      const now = new Date()
+      const sessionInfo = IrSdkWrapper.getSessionInfo()
+      let doc
       setImmediate(function () {
         try {
           doc = parseSessionInfo(sessionInfo)
@@ -505,11 +505,11 @@ function JsIrSdk (IrSdkWrapper, opts) {
   */
   function padCarNum (numStr) {
     if (typeof numStr === 'string') {
-      var num = parseInt(numStr)
-      var zeros = numStr.length - num.toString().length
+      const num = parseInt(numStr)
+      const zeros = numStr.length - num.toString().length
       if (!zeros) return num
 
-      var numPlaces = 1
+      let numPlaces = 1
       if (num > 9) numPlaces = 2
       if (num > 99) numPlaces = 3
 
@@ -523,7 +523,7 @@ util.inherits(JsIrSdk, events.EventEmitter)
 module.exports = JsIrSdk
 
 function stringToEnum (input, enumObj) {
-  var enumKey = Object.keys(enumObj).find(function (key) {
+  const enumKey = Object.keys(enumObj).find(function (key) {
     return key.toLowerCase() === input.toLowerCase()
   })
   if (enumKey) {
