@@ -22,16 +22,21 @@ var instance
   * // look for telemetry updates only once per 100 ms
   * var iracing = irsdk.init({telemetryUpdateInterval: 100})
 */
-var init = module.exports.init = function (opts) {
+var init = (module.exports.init = function (opts) {
   if (!instance) {
-    instance = new JsIrSdk(IrSdkNodeWrapper,
-      Object.assign({
-        telemetryUpdateInterval: 0,
-        sessionInfoUpdateInterval: 0
-      }, opts))
+    instance = new JsIrSdk(
+      IrSdkNodeWrapper,
+      Object.assign(
+        {
+          telemetryUpdateInterval: 0,
+          sessionInfoUpdateInterval: 0,
+        },
+        opts
+      )
+    )
   }
   return instance
-}
+})
 
 /**
   Get initialized instance of JsIrSdk

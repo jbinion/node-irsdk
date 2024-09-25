@@ -9,13 +9,15 @@ var BroadcastMsg = Consts.BroadcastMsg
   @param {string} sessionInfoStr raw session info YAML string
   @returns {Object} parsed session info or falsy
 */
-function createSessionInfoParser () {
+function createSessionInfoParser() {
   var yaml = require('js-yaml')
 
   return function (sessionInfoStr) {
     var fixedYamlStr = sessionInfoStr.replace(/TeamName: ([^\n]+)/g, function (match, p1) {
-      if ((p1[0] === '"' && p1[p1.length - 1] === '"') ||
-          (p1[0] === "'" && p1[p1.length - 1] === "'")) {
+      if (
+        (p1[0] === '"' && p1[p1.length - 1] === '"') ||
+        (p1[0] === "'" && p1[p1.length - 1] === "'")
+      ) {
         return match // skip if quoted already
       } else {
         // 2nd replace is unnecessary atm but its here just in case
@@ -23,12 +25,12 @@ function createSessionInfoParser () {
       }
     })
     var cleanNonAsciiNames = fixedYamlStr
-    .replace(/UserName: ([^\n]+)/g, function (match, p1) {
-      return 'UserName: ' + p1.replace(/[^\x20-\x7E]/g, '')
-    })
-    .replace(/AbbrevName: ([^\n]+)/g, function (match, p1) {
-      return 'AbbrevName: ' + p1.replace(/[^\x20-\x7E]/g, '')
-    })
+      .replace(/UserName: ([^\n]+)/g, function (match, p1) {
+        return 'UserName: ' + p1.replace(/[^\x20-\x7E]/g, '')
+      })
+      .replace(/AbbrevName: ([^\n]+)/g, function (match, p1) {
+        return 'AbbrevName: ' + p1.replace(/[^\x20-\x7E]/g, '')
+      })
     return yaml.safeLoad(cleanNonAsciiNames)
   }
 }
@@ -50,7 +52,7 @@ function createSessionInfoParser () {
 
   @example var iracing = require('node-irsdk').getInstance()
 */
-function JsIrSdk (IrSdkWrapper, opts) {
+function JsIrSdk(IrSdkWrapper, opts) {
   events.EventEmitter.call(this)
 
   /** Execute any of available commands, excl. FFB command
@@ -136,7 +138,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
       if (Number.isInteger(position)) {
         self.execCmd(BroadcastMsg.CamSwitchPos, position, camGroupNum, camNum)
       }
-    }
+    },
   }
 
   /** Replay and playback controls
@@ -232,7 +234,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
       if (Number.isInteger(rpyPosMode)) {
         self.execCmd(BroadcastMsg.ReplaySetPlayPosition, rpyPosMode, frameNum)
       }
-    }
+    },
   }
 
   /** Reload all car textures
@@ -357,7 +359,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
           *   console.log(evt)
           * })
         */
-        self.emit('update', {type: 'Connected', timestamp: new Date()})
+        self.emit('update', { type: 'Connected', timestamp: new Date() })
       }
     } else {
       if (connected) {
@@ -370,7 +372,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
           *   console.log(evt)
           * })
         */
-        self.emit('update', {type: 'Disconnected', timestamp: new Date()})
+        self.emit('update', { type: 'Disconnected', timestamp: new Date() })
 
         IrSdkWrapper.shutdown()
         self.telemetryDescription = null
@@ -398,7 +400,11 @@ function JsIrSdk (IrSdkWrapper, opts) {
             *   console.log(evt)
             * })
           */
-          self.emit('update', {type: 'TelemetryDescription', data: self.telemetryDescription, timestamp: now})
+          self.emit('update', {
+            type: 'TelemetryDescription',
+            data: self.telemetryDescription,
+            timestamp: now,
+          })
         }
         /**
           Telemetry update
@@ -409,7 +415,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
           *   console.log(evt)
           * })
         */
-        self.emit('update', {type: 'Telemetry', data: self.telemetry.values, timestamp: now})
+        self.emit('update', { type: 'Telemetry', data: self.telemetry.values, timestamp: now })
       })
     }
   }, opts.telemetryUpdateInterval)
@@ -439,7 +445,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
             *   console.log(evt)
             * })
           */
-          self.emit('update', {type: 'SessionInfo', data: self.sessionInfo.data, timestamp: now})
+          self.emit('update', { type: 'SessionInfo', data: self.sessionInfo.data, timestamp: now })
         }
       })
     }
@@ -454,7 +460,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
     *   console.log(evt)
     * })
     */
-  self.on('update', evt => {
+  self.on('update', (evt) => {
     // fire old events as well.
     const timestamp = evt.timestamp
     const data = evt.data
@@ -462,10 +468,10 @@ function JsIrSdk (IrSdkWrapper, opts) {
 
     switch (type) {
       case 'SessionInfo':
-        self.emit('SessionInfo', {timestamp, data})
+        self.emit('SessionInfo', { timestamp, data })
         break
       case 'Telemetry':
-        self.emit('Telemetry', {timestamp, values: data})
+        self.emit('Telemetry', { timestamp, values: data })
         break
       case 'TelemetryDescription':
         self.emit('TelemetryDescription', data)
@@ -497,7 +503,7 @@ function JsIrSdk (IrSdkWrapper, opts) {
     @function
     @private
   */
-  function padCarNum (numStr) {
+  function padCarNum(numStr) {
     if (typeof numStr === 'string') {
       var num = parseInt(numStr)
       var zeros = numStr.length - num.toString().length
@@ -516,7 +522,7 @@ util.inherits(JsIrSdk, events.EventEmitter)
 
 module.exports = JsIrSdk
 
-function stringToEnum (input, enumObj) {
+function stringToEnum(input, enumObj) {
   var enumKey = Object.keys(enumObj).find(function (key) {
     return key.toLowerCase() === input.toLowerCase()
   })

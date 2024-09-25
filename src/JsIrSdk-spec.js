@@ -15,7 +15,7 @@ describe('JsIrSdk', function () {
   it('emits "Connected" when iRacing available', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000
+      sessionInfoUpdateInterval: 20000,
     }
     var mock = Object.create(IrSdkWrapper)
     var start = sinon.stub(mock, 'start')
@@ -35,7 +35,7 @@ describe('JsIrSdk', function () {
   it('emits "Disconnected" when iRacing shut down', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000
+      sessionInfoUpdateInterval: 20000,
     }
     var mock = Object.create(IrSdkWrapper)
     irsdk = new JsIrSdk(mock, opts)
@@ -52,7 +52,7 @@ describe('JsIrSdk', function () {
   it('emits "Connected" again after reconnect', function () {
     var opts = {
       telemetryUpdateInterval: 2000,
-      sessionInfoUpdateInterval: 20000
+      sessionInfoUpdateInterval: 20000,
     }
     var mock = Object.create(IrSdkWrapper)
     var start = sinon.stub(mock, 'start')
@@ -77,13 +77,13 @@ describe('JsIrSdk', function () {
   it('emits "TelemetryDescription" once after "Connected"', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000
+      sessionInfoUpdateInterval: 20000,
     }
     var mock = Object.create(IrSdkWrapper)
     var updateTelemetry = sinon.stub(mock, 'updateTelemetry')
     updateTelemetry.returns(true)
     var getTelemetryDescription = sinon.stub(mock, 'getTelemetryDescription')
-    var desc = [{'RPM': 'engine revs per minute'}]
+    var desc = [{ RPM: 'engine revs per minute' }]
     getTelemetryDescription.returns(desc)
     var isConnected = sinon.stub(mock, 'isConnected')
     isConnected.returns(true)
@@ -99,13 +99,13 @@ describe('JsIrSdk', function () {
   it('emits "Telemetry" when update available', function () {
     var opts = {
       telemetryUpdateInterval: 10,
-      sessionInfoUpdateInterval: 20000
+      sessionInfoUpdateInterval: 20000,
     }
     var mock = Object.create(IrSdkWrapper)
     var updateTelemetry = sinon.stub(mock, 'updateTelemetry')
     updateTelemetry.returns(true)
     var getTelemetry = sinon.stub(mock, 'getTelemetry')
-    var data = {values: {'RPM': 1100}}
+    var data = { values: { RPM: 1100 } }
     getTelemetry.returns(data)
     var isConnected = sinon.stub(mock, 'isConnected')
     isConnected.returns(true)
@@ -125,7 +125,7 @@ describe('JsIrSdk', function () {
   it('emits "SessionInfo" when update available', function () {
     var opts = {
       telemetryUpdateInterval: 10,
-      sessionInfoUpdateInterval: 10
+      sessionInfoUpdateInterval: 10,
     }
     var mock = Object.create(IrSdkWrapper)
     var updateSessionInfo = sinon.stub(mock, 'updateSessionInfo')

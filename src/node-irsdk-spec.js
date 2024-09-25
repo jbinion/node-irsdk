@@ -9,13 +9,13 @@ describe('node-irsdk', function () {
       var nodeWrapperMock = {}
       var opts = {
         telemetryUpdateInterval: 1,
-        sessionInfoUpdateInterval: 2
+        sessionInfoUpdateInterval: 2,
       }
       var nodeIrSdk = sandboxed.require('./node-irsdk', {
         requires: {
           '../build/Release/IrSdkNodeBindings': nodeWrapperMock,
-          './JsIrSdk': jsIrSdkSpy
-        }
+          './JsIrSdk': jsIrSdkSpy,
+        },
       })
       nodeIrSdk.init(opts)
       nodeIrSdk.init(opts)
@@ -25,13 +25,15 @@ describe('node-irsdk', function () {
   })
   describe('#getInstance', function () {
     it('gives JsIrSdk singleton', function () {
-      var jsWrapperMock = function () { return ++jsWrapperMock.instanceCount }
+      var jsWrapperMock = function () {
+        return ++jsWrapperMock.instanceCount
+      }
       var nodeWrapperMock = {}
       var nodeIrSdk = sandboxed.require('./node-irsdk', {
         requires: {
           '../build/Release/IrSdkNodeBindings': nodeWrapperMock,
-          './JsIrSdk': jsWrapperMock
-        }
+          './JsIrSdk': jsWrapperMock,
+        },
       })
       var instance1 = nodeIrSdk.getInstance()
       var instance2 = nodeIrSdk.getInstance()
