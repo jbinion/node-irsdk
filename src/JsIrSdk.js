@@ -31,7 +31,7 @@ function createSessionInfoParser () {
       .replace(/AbbrevName: ([^\n]+)/g, function (match, p1) {
         return 'AbbrevName: ' + p1.replace(/[^\x20-\x7E]/g, '')
       })
-    return yaml.safeLoad(cleanNonAsciiNames)
+    return yaml.load(cleanNonAsciiNames)
   }
 }
 
