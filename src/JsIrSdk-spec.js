@@ -15,7 +15,7 @@ describe('JsIrSdk', function () {
   it('emits "Connected" when iRacing available', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000,
+      sessionInfoUpdateInterval: 20000
     }
     var mock = Object.create(IrSdkWrapper)
     var start = sinon.stub(mock, 'start')
@@ -35,7 +35,7 @@ describe('JsIrSdk', function () {
   it('emits "Disconnected" when iRacing shut down', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000,
+      sessionInfoUpdateInterval: 20000
     }
     var mock = Object.create(IrSdkWrapper)
     irsdk = new JsIrSdk(mock, opts)
@@ -52,7 +52,7 @@ describe('JsIrSdk', function () {
   it('emits "Connected" again after reconnect', function () {
     var opts = {
       telemetryUpdateInterval: 2000,
-      sessionInfoUpdateInterval: 20000,
+      sessionInfoUpdateInterval: 20000
     }
     var mock = Object.create(IrSdkWrapper)
     var start = sinon.stub(mock, 'start')
@@ -77,7 +77,7 @@ describe('JsIrSdk', function () {
   it('emits "TelemetryDescription" once after "Connected"', function () {
     var opts = {
       telemetryUpdateInterval: 1,
-      sessionInfoUpdateInterval: 20000,
+      sessionInfoUpdateInterval: 20000
     }
     var mock = Object.create(IrSdkWrapper)
     var updateTelemetry = sinon.stub(mock, 'updateTelemetry')
@@ -99,7 +99,7 @@ describe('JsIrSdk', function () {
   it('emits "Telemetry" when update available', function () {
     var opts = {
       telemetryUpdateInterval: 10,
-      sessionInfoUpdateInterval: 20000,
+      sessionInfoUpdateInterval: 20000
     }
     var mock = Object.create(IrSdkWrapper)
     var updateTelemetry = sinon.stub(mock, 'updateTelemetry')
@@ -125,7 +125,7 @@ describe('JsIrSdk', function () {
   it('emits "SessionInfo" when update available', function () {
     var opts = {
       telemetryUpdateInterval: 10,
-      sessionInfoUpdateInterval: 10,
+      sessionInfoUpdateInterval: 10
     }
     var mock = Object.create(IrSdkWrapper)
     var updateSessionInfo = sinon.stub(mock, 'updateSessionInfo')

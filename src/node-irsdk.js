@@ -29,7 +29,7 @@ var init = (module.exports.init = function (opts) {
       Object.assign(
         {
           telemetryUpdateInterval: 0,
-          sessionInfoUpdateInterval: 0,
+          sessionInfoUpdateInterval: 0
         },
         opts
       )

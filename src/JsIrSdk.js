@@ -9,7 +9,7 @@ var BroadcastMsg = Consts.BroadcastMsg
   @param {string} sessionInfoStr raw session info YAML string
   @returns {Object} parsed session info or falsy
 */
-function createSessionInfoParser() {
+function createSessionInfoParser () {
   var yaml = require('js-yaml')
 
   return function (sessionInfoStr) {
@@ -52,7 +52,7 @@ function createSessionInfoParser() {
 
   @example var iracing = require('node-irsdk').getInstance()
 */
-function JsIrSdk(IrSdkWrapper, opts) {
+function JsIrSdk (IrSdkWrapper, opts) {
   events.EventEmitter.call(this)
 
   /** Execute any of available commands, excl. FFB command
@@ -138,7 +138,7 @@ function JsIrSdk(IrSdkWrapper, opts) {
       if (Number.isInteger(position)) {
         self.execCmd(BroadcastMsg.CamSwitchPos, position, camGroupNum, camNum)
       }
-    },
+    }
   }
 
   /** Replay and playback controls
@@ -234,7 +234,7 @@ function JsIrSdk(IrSdkWrapper, opts) {
       if (Number.isInteger(rpyPosMode)) {
         self.execCmd(BroadcastMsg.ReplaySetPlayPosition, rpyPosMode, frameNum)
       }
-    },
+    }
   }
 
   /** Reload all car textures
@@ -403,7 +403,7 @@ function JsIrSdk(IrSdkWrapper, opts) {
           self.emit('update', {
             type: 'TelemetryDescription',
             data: self.telemetryDescription,
-            timestamp: now,
+            timestamp: now
           })
         }
         /**
@@ -503,7 +503,7 @@ function JsIrSdk(IrSdkWrapper, opts) {
     @function
     @private
   */
-  function padCarNum(numStr) {
+  function padCarNum (numStr) {
     if (typeof numStr === 'string') {
       var num = parseInt(numStr)
       var zeros = numStr.length - num.toString().length
@@ -522,7 +522,7 @@ util.inherits(JsIrSdk, events.EventEmitter)
 
 module.exports = JsIrSdk
 
-function stringToEnum(input, enumObj) {
+function stringToEnum (input, enumObj) {
   var enumKey = Object.keys(enumObj).find(function (key) {
     return key.toLowerCase() === input.toLowerCase()
   })
